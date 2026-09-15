@@ -1,0 +1,94 @@
+name: SharpSites finishing live audit
+on:
+  push:
+    branches: [gh-pages]
+    paths: ['.github/workflows/finishing-live-audit.yml']
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m pip install playwright==1.55.0
+      - run: python -m playwright install --with-deps chromium
+      - name: Check live identity, contact links and six responsive widths without sending enquiries
+        shell: python
+        run: |
+          import asyncio,json,re
+          from pathlib import Path
+          from datetime import datetime,timezone
+          from playwright.async_api import async_playwright
+          urls=[
+          ('kd-grand','https://ritik-sharma1.github.io/kd-grand-banquet-demo/','919999567482'),
+          ('amaara','https://ritik-sharma1.github.io/','919650976077'),
+          ('aagman','https://ritik-sharma1.github.io/shivam-sharpsites-demos/aagman-by-grewals/','919999262600'),
+          ('mz-fitness','https://sharpsites-demo.github.io/mz-fitness-gagan-vihar-demo/','917042084853'),
+          ('astha','https://sharpsites-demo.github.io/dr-astha-agarwal-nina-demo/','918882476129'),
+          ('remedial','https://sharpsites-demo.github.io/remedial-physiotherapy-clinic-nina-demo/','918700663362'),
+          ('dolce-vita','https://sharpsites-demo.github.io/dolce-vita-cosmetic-clinic-nina-demo/','919873401145'),
+          ('meet-fitness','https://sharpsites-demo.github.io/meet-fitness-sant-garh-nina-demo/','919999002474'),
+          ('sparta','https://sharpsites-demo.github.io/sparta-gym-spa-ritik-demo/','919540841111'),
+          ('gracious','https://ritik-sharma1.github.io/gracious-banquets-naraina-demo/','919911170065'),
+          ('shakshi','https://ritik-sharma1.github.io/shakshi-banquet-hall-najafgarh-demo/','919250218508'),
+          ('grand-galaxy','https://ritik-sharma1.github.io/grand-galaxy-banquet-hall/','918447579850'),
+          ('a1','https://ritik-sharma1.github.io/a1-banquet-naraina-demo/','917834873747'),
+          ('saniya','https://sharpsites-demo.github.io/saniya-dental-clinic-demo/','919667629339'),
+          ('elixir','https://sharpsites-demo.github.io/elixir-derma-clinic-demo/','919311022595'),
+          ('jmc','https://sharpsites-demo.github.io/jmc-hospitals-demo/','919870346558'),
+          ('sg-imaging','https://sharpsites-demo.github.io/sg-imaging-diagnostic-demo/','917290001548'),
+          ('tyagi','https://sharpsites-demo.github.io/tyagi-imaging-diagnostic-demo/','917906254345'),
+          ('charu','https://sharpsites-demo.github.io/dr-charu-bansal-derma-demo/','919811532131'),
+          ('ultra','https://sharpsites-demo.github.io/ultra-diagnostics-demo/','919305137702'),
+          ('dermhealth','https://sharpsites-demo.github.io/dermhealth-skin-hair-demo/','919910935102'),
+          ('shanti','https://sharpsites-demo.github.io/shanti-diagnostics-demo/','917290889095'),
+          ('versha','https://versha-clinic-demo.pages.dev/','919312088055')]
+          out=Path('audit-output');out.mkdir(exist_ok=True)
+          async def main():
+            results=[]
+            async with async_playwright() as p:
+              browser=await p.chromium.launch()
+              sem=asyncio.Semaphore(4)
+              async def test(entry):
+                key,url,phone=entry
+                async with sem:
+                  page=await browser.new_page(viewport={'width':390,'height':844})
+                  errors=[]
+                  page.on('pageerror',lambda e:errors.append(str(e)))
+                  result={'id':key,'url':url,'expectedWhatsApp':phone,'checkedAt':datetime.now(timezone.utc).isoformat()}
+                  try:
+                    resp=await page.goto(url,wait_until='networkidle',timeout=35000)
+                    result['status']=resp.status if resp else None
+                    result['finalUrl']=page.url
+                    result['title']=await page.title()
+                    result['body']=await page.locator('body').inner_text()
+                    result['phones']=await page.locator('a[href^="tel:"]').evaluate_all('(els)=>els.map(e=>e.getAttribute("href"))')
+                    result['h1']=await page.locator('h1').all_text_contents()
+                    result['metadata']=await page.evaluate('''()=>({description:document.querySelector('meta[name="description"]')?.content,canonical:document.querySelector('link[rel="canonical"]')?.href,ogTitle:document.querySelector('meta[property="og:title"]')?.content,robots:document.querySelector('meta[name="robots"]')?.content,jsonld:[...document.querySelectorAll('script[type="application/ld+json"]')].map(e=>e.textContent),footer:document.querySelector('footer')?.innerText})''')
+                    result['widths']=[]
+                    for width in [375,390,430,768,1024,1440]:
+                      await page.set_viewport_size({'width':width,'height':900})
+                      await page.evaluate('window.scrollTo(0,0)')
+                      await page.wait_for_timeout(120)
+                      datum=await page.evaluate('''()=>({width:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth,wa:[...document.querySelectorAll('a[href*="wa.me/"]')].map(e=>{let r=e.getBoundingClientRect(),s=getComputedStyle(e);return {href:e.href,width:r.width,height:r.height,position:s.position,background:s.backgroundColor,borderRadius:s.borderRadius,right:innerWidth-r.right,bottom:innerHeight-r.bottom,display:s.display}}),map:[...document.querySelectorAll('footer *')].filter(e=>e.children.length===0&&e.textContent.trim()==='[Add Google Maps embed]').map(e=>({tag:e.tagName,height:e.getBoundingClientRect().height,parentHeight:e.parentElement.getBoundingClientRect().height}))})''')
+                      result['widths'].append(datum)
+                      if width in [390,1440]:await page.screenshot(path=str(out/f'{key}-{width}.png'),full_page=True)
+                    result['javascriptErrors']=errors
+                    result['layoutContactPass']=result['status']==200 and len(result['h1'])==1 and all(not w['overflow'] and len(w['wa'])==1 and phone in w['wa'][0]['href'] and w['wa'][0]['width']>=48 and w['wa'][0]['height']>=48 and w['wa'][0]['background']=='rgb(37, 211, 102)' and w['wa'][0]['position']=='fixed' for w in result['widths'])
+                    (out/f'{key}.html').write_text(await page.content())
+                  except Exception as e:result['error']=str(e)
+                  finally:await page.close()
+                  print(json.dumps({k:v for k,v in result.items() if k not in ['body','metadata','widths']},ensure_ascii=False))
+                  return result
+              results=await asyncio.gather(*(test(e) for e in urls))
+              await browser.close()
+            (out/'report.json').write_text(json.dumps(results,ensure_ascii=False,indent=2))
+            (out/'summary.json').write_text(json.dumps([{k:v for k,v in r.items() if k not in ['body','metadata','widths']} for r in results],ensure_ascii=False,indent=2))
+          asyncio.run(main())
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sharpsites-finishing-live-audit
+          path: audit-output/
+          retention-days: 14

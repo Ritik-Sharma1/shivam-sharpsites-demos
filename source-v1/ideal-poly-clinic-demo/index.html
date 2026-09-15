@@ -1,0 +1,445 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style rel="stylesheet" type="text/css">@charset "utf-8";
+
+:root { --teal: #0e4a4f; --teal-dark: #0a383c; --teal-ink: #0c3a3e; --mint: #e6f4f1; --mint-soft: #f2faf8; --gold: #c9a24b; --gold-soft: #f6edd9; --ink: #1c2b2e; --ink-soft: #51666a; --line: #e2ecea; --white: #ffffff; --bg: #f7fbfa; --serif: 'Fraunces',Georgia,serif; --sans: 'Inter',system-ui,sans-serif; --shadow: 0 18px 45px -22px rgba(14,74,79,.35); --shadow-sm: 0 8px 24px -14px rgba(14,74,79,.28); --r: 22px; }
+
+* { margin: 0px; padding: 0px; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+h1, h2, h3, .serif { font-family: var(--serif); font-weight: 600; line-height: 1.12; color: var(--teal-ink); }
+
+.container { width: min(1120px, 92%); margin-inline: auto; }
+
+section { padding: clamp(3.4rem, 7vw, 6rem) 0px; }
+
+.eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); background: var(--mint); padding: 0.45rem 0.9rem; border-radius: 100px; margin-bottom: 1.1rem; }
+
+.sec-head { max-width: 640px; margin-bottom: 2.6rem; }
+
+.sec-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 0.7rem; }
+
+.sec-head p { color: var(--ink-soft); font-size: 1.02rem; }
+
+header { position: sticky; top: 0px; z-index: 50; background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 0px; }
+
+.brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+
+.mark { width: 44px; height: 44px; border-radius: 13px; background: linear-gradient(135deg,var(--teal),#1a6b70); display: grid; place-items: center; color: rgb(255, 255, 255); box-shadow: var(--shadow-sm); }
+
+.mark svg { width: 24px; height: 24px; }
+
+.brand-name { font-family: var(--serif); font-weight: 700; font-size: 1.12rem; color: var(--teal-ink); line-height: 1.05; }
+
+.brand-sub { font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
+
+.nav-links { display: none; gap: 1.6rem; list-style: none; }
+
+.nav-links a { text-decoration: none; color: var(--ink-soft); font-weight: 500; font-size: 0.92rem; transition: color 0.2s; }
+
+.nav-links a:hover { color: var(--teal); }
+
+.nav-cta { display: flex; align-items: center; gap: 0.6rem; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem; font-weight: 600; font-size: 0.95rem; padding: 0.78rem 1.4rem; border-radius: 100px; text-decoration: none; border: 1px solid transparent; transition: transform 0.18s, box-shadow 0.18s, background 0.2s; cursor: pointer; }
+
+.btn:hover { transform:none; }
+
+.btn-primary { background: var(--teal); color: rgb(255, 255, 255); box-shadow: var(--shadow-sm); }
+
+.btn-primary:hover { background: var(--teal-dark); }
+
+.btn-gold { background: linear-gradient(135deg, rgb(217, 180, 92), rgb(201, 162, 75)); color: rgb(42, 32, 16); box-shadow: var(--shadow-sm); }
+
+.btn-ghost { background: transparent; color: var(--teal); border-color: var(--teal); }
+
+.btn-ghost:hover { background: var(--mint); }
+
+.btn svg { width: 18px; height: 18px; }
+
+.hero { position: relative; background: radial-gradient(900px 420px at 85% -10%,rgba(38,120,124,.16),transparent 60%),
+  radial-gradient(700px 380px at -10% 20%,rgba(201,162,75,.12),transparent 55%),
+  linear-gradient(180deg,#eef8f6,var(--bg)); overflow: hidden; }
+
+.hero .container { display: grid; gap: 2.4rem; align-items: center; padding-top: clamp(2.6rem, 6vw, 4.5rem); padding-bottom: clamp(2.6rem, 6vw, 4.5rem); }
+
+.hero-copy { max-width: 620px; }
+
+.hero h1 { font-size: clamp(2.2rem, 5.4vw, 3.6rem); margin: 0.4rem 0px 1rem; }
+
+.hero h1 em { font-style: normal; color: var(--gold); }
+
+.hero p.lead { color: var(--ink-soft); font-size: 1.1rem; max-width: 540px; margin-bottom: 1.6rem; }
+
+.rating { display: inline-flex; align-items: center; gap: 0.6rem; background: rgb(255, 255, 255); border: 1px solid var(--line); border-radius: 100px; padding: 0.5rem 1rem; box-shadow: var(--shadow-sm); margin-bottom: 1.4rem; }
+
+.stars { color: var(--gold); letter-spacing: 1px; font-size: 0.95rem; }
+
+.rating b { color: var(--teal-ink); }
+
+.rating span { color: var(--ink-soft); font-size: 0.85rem; }
+
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.4rem; }
+
+.hero-note { margin-top: 1.1rem; font-size: 0.82rem; color: var(--ink-soft); }
+
+.hero-art { position: relative; display: grid; place-items: center; }
+
+.art-ring { width: min(340px, 80vw); aspect-ratio: 1 / 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgb(28, 107, 112), rgb(14, 74, 79) 70%); display: grid; place-items: center; box-shadow: var(--shadow); position: relative; }
+
+.art-ring::after { content: ""; position: absolute; inset: -18px; border: 1.5px dashed rgba(14, 74, 79, 0.35); border-radius: 50%; animation: 40s linear 0s infinite normal none running spin; }
+
+@keyframes spin { 
+  100% { transform: rotate(360deg); }
+}
+
+.art-inner { width: 70%; aspect-ratio: 1 / 1; border-radius: 50%; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.25); display: grid; place-items: center; color: rgb(255, 255, 255); text-align: center; padding: 1rem; }
+
+.art-inner span { font-family: var(--serif); font-size: 1.05rem; line-height: 1.4; }
+
+.art-chip { position: absolute; background: rgb(255, 255, 255); border-radius: 16px; box-shadow: var(--shadow); padding: 0.6rem 0.9rem; font-size: 0.78rem; font-weight: 600; color: var(--teal-ink); display: flex; align-items: center; gap: 0.45rem; }
+
+.art-chip svg { width: 16px; height: 16px; color: var(--gold); }
+
+.chip-1 { top: 6%; left: -4%; }
+
+.chip-2 { bottom: 10%; right: -6%; }
+
+.trust { background: var(--teal); color: rgb(255, 255, 255); padding: 1.6rem 0px; }
+
+.trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; text-align: center; }
+
+.trust-item .num { font-family: var(--serif); font-size: clamp(1.6rem, 3.4vw, 2.2rem); font-weight: 700; color: rgb(255, 255, 255); }
+
+.trust-item .lbl { font-size: 0.82rem; color: rgb(207, 230, 226); letter-spacing: 0.04em; }
+
+.grid { display: grid; gap: 1.1rem; grid-template-columns: 1fr; }
+
+.card { background: rgb(255, 255, 255); border: 1px solid var(--line); border-radius: var(--r); padding: 1.5rem; box-shadow: var(--shadow-sm); transition: transform 0.22s, box-shadow 0.22s; }
+
+.card:hover { transform:none; box-shadow: var(--shadow); }
+
+.card .ico { width: 46px; height: 46px; border-radius: 13px; background: var(--mint); display: grid; place-items: center; color: var(--teal); margin-bottom: 0.9rem; }
+
+.card .ico svg { width: 22px; height: 22px; }
+
+.card h3 { font-size: 1.12rem; margin-bottom: 0.35rem; }
+
+.card p { color: var(--ink-soft); font-size: 0.9rem; }
+
+.why { background: var(--white); }
+
+.why-grid { display: grid; gap: 1.1rem; grid-template-columns: 1fr; }
+
+.why-card { display: flex; gap: 1rem; align-items: flex-start; background: var(--mint-soft); border: 1px solid var(--line); border-radius: var(--r); padding: 1.4rem; }
+
+.why-card .ico { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 12px; background: rgb(255, 255, 255); display: grid; place-items: center; color: var(--teal); box-shadow: var(--shadow-sm); }
+
+.why-card h3 { font-size: 1.05rem; margin-bottom: 0.25rem; }
+
+.why-card p { color: var(--ink-soft); font-size: 0.88rem; }
+
+.testi-card { background: rgb(255, 255, 255); border: 1px solid var(--line); border-radius: var(--r); padding: 1.6rem; box-shadow: var(--shadow-sm); position: relative; }
+
+.testi-card .q { color: var(--gold); font-family: var(--serif); font-size: 2.4rem; line-height: 0.6; display: block; margin-bottom: 0.9rem; }
+
+.testi-card .stars { font-size: 0.85rem; margin-bottom: 0.6rem; }
+
+.testi-card p { color: var(--ink-soft); font-size: 0.92rem; font-style: italic; }
+
+.testi-card .who { margin-top: 1rem; font-weight: 600; font-size: 0.85rem; color: var(--teal-ink); }
+
+.amenity { display: flex; align-items: center; gap: 0.8rem; background: rgb(255, 255, 255); border: 1px solid var(--line); border-radius: 14px; padding: 0.95rem 1.1rem; box-shadow: var(--shadow-sm); }
+
+.amenity .ico { width: 38px; height: 38px; flex: 0 0 auto; border-radius: 10px; background: var(--mint); display: grid; place-items: center; color: var(--teal); }
+
+.amenity .ico svg { width: 19px; height: 19px; }
+
+.amenity b { font-size: 0.92rem; color: var(--teal-ink); }
+
+.amenity span { display: block; font-size: 0.8rem; color: var(--ink-soft); }
+
+.hours { background: linear-gradient(180deg,var(--teal),var(--teal-dark)); color: rgb(255, 255, 255); border-radius: var(--r); padding: 2.2rem; box-shadow: var(--shadow); }
+
+.hours h3 { color: rgb(255, 255, 255); font-size: 1.4rem; margin-bottom: 1.2rem; }
+
+.hours-row { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 0px; border-bottom: 1px dashed rgba(255, 255, 255, 0.22); }
+
+.hours-row:last-child { border-bottom-width: medium; border-bottom-style: none; border-bottom-color: currentcolor; }
+
+.hours-row b { font-weight: 600; }
+
+.hours-row .open { color: rgb(255, 227, 166); font-weight: 700; }
+
+.hours-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 100px; padding: 0.5rem 0.95rem; font-weight: 600; font-size: 0.9rem; margin-top: 1.2rem; }
+
+.hours-badge .dot { width: 9px; height: 9px; border-radius: 50%; background: rgb(127, 224, 168); box-shadow: rgba(127, 224, 168, 0.25) 0px 0px 0px 4px; }
+
+.map-blank { position: relative; border: 2px dashed var(--teal); border-radius: var(--r); background: repeating-linear-gradient(45deg, rgb(238, 246, 244), rgb(238, 246, 244) 12px, rgb(228, 240, 238) 12px, rgb(228, 240, 238) 24px); min-height: 300px; display: grid; place-items: center; text-align: center; padding: 2rem; }
+
+.map-blank .pin { width: 52px; height: 52px; border-radius: 50% 50% 50% 0px; transform: rotate(-45deg); background: var(--teal); display: grid; place-items: center; margin: 0px auto 0.9rem; box-shadow: var(--shadow-sm); }
+
+.map-blank .pin svg { transform: rotate(45deg); width: 24px; height: 24px; color: rgb(255, 255, 255); }
+
+.map-blank .ph { font-family: var(--serif); font-weight: 700; color: var(--teal-ink); font-size: 1.15rem; }
+
+.map-blank .sub { color: var(--ink-soft); font-size: 0.88rem; margin-top: 0.3rem; }
+
+.map-blank .btn { margin-top: 1.2rem; }
+
+.contact { background: var(--white); }
+
+.contact-grid { display: grid; gap: 1.1rem; grid-template-columns: 1fr; }
+
+.contact-card { background: var(--mint-soft); border: 1px solid var(--line); border-radius: var(--r); padding: 1.6rem; text-align: center; }
+
+.contact-card .ico { width: 50px; height: 50px; margin: 0px auto 0.8rem; border-radius: 14px; background: rgb(255, 255, 255); display: grid; place-items: center; color: var(--teal); box-shadow: var(--shadow-sm); }
+
+.contact-card .ico svg { width: 24px; height: 24px; }
+
+.contact-card h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+
+.contact-card p { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 0.8rem; }
+
+.contact-card a { color: var(--teal); font-weight: 700; text-decoration: none; }
+
+footer { background: var(--teal-dark); color: rgb(207, 230, 226); padding: 2.6rem 0px 6rem; font-size: 0.88rem; }
+
+.foot-grid { display: grid; gap: 1.6rem; grid-template-columns: 1fr; }
+
+footer .brand-name { color: rgb(255, 255, 255); }
+
+footer h4 { color: rgb(255, 255, 255); font-family: var(--serif); font-size: 1rem; margin-bottom: 0.7rem; }
+
+footer a { color: rgb(207, 230, 226); text-decoration: none; }
+
+footer .demo-note { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid rgba(255, 255, 255, 0.15); font-size: 0.78rem; color: rgb(159, 196, 191); }
+
+.wa-fab { position: fixed; right: 18px; bottom: 18px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: rgb(37, 211, 102); display: grid; place-items: center; box-shadow: rgba(37, 211, 102, 0.6) 0px 12px 28px -8px; transition: transform 0.2s; }
+
+.wa-fab:hover { transform:none; }
+
+.wa-fab svg { width: 30px; height: 30px; color: rgb(255, 255, 255); }
+
+.reveal { opacity:1; transform:none; transition: opacity 0.7s, transform 0.7s; }
+
+.reveal.in { opacity: 1; transform: none; }
+
+@media (min-width: 640px) {
+  .grid, .why-grid, .contact-grid { grid-template-columns: repeat(2, 1fr); }
+  .foot-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .nav-links { display: flex; }
+  .hero .container { grid-template-columns: 1.05fr 0.95fr; }
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-grid { grid-template-columns: repeat(3, 1fr); }
+  .foot-grid { grid-template-columns: 2fr 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .nav-cta .btn { display: none; }
+  .trust-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+  footer { padding-bottom: 6.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: auto ease 0s 1 normal none running none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideal Poly Clinic | Trusted Family Doctor — Kalyanpuri, Delhi</title>
+<meta name="description" content="Ideal Poly Clinic 13/62-63 Kalyanpuri Delhi — multispeciality family poly clinic open 24x7. General physician, child doctor, women's health, diabetes care, BP &amp; sugar checkup. Call +91 98102 21262.">
+<meta name="theme-color" content="#0e4a4f">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+
+<style id="sharpsites-contact-fix">.ss-whatsapp{position:fixed!important;right:20px!important;bottom:20px!important;width:56px!important;height:56px!important;padding:12px!important;border:0!important;border-radius:50%!important;background:#25D366!important;color:white!important;display:flex!important;align-items:center!important;justify-content:center!important;box-shadow:0 4px 16px #0002;z-index:9999;box-sizing:border-box}.ss-whatsapp svg{width:32px!important;height:32px!important;fill:white!important}.ss-whatsapp:focus-visible{outline:3px solid #122a22;outline-offset:4px}a:focus-visible,button:focus-visible{outline:2px solid currentColor;outline-offset:4px}body{overflow-wrap:break-word}footer{padding-bottom:96px!important}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}</style>
+<meta name="robots" content="noindex,nofollow">
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/#top" aria-label="Ideal Poly Clinic home">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9.3-9A5.4 5.4 0 0 1 12 6.6 5.4 5.4 0 0 1 21.3 12C19 16.4 12 21 12 21Z"></path><path d="M12 8.5v7M8.5 12h7"></path></svg>
+      </span>
+      <span>
+        <span class="brand-name">Ideal Poly Clinic</span><br>
+        <span class="brand-sub">Kalyanpuri · Delhi · 24x7</span>
+      </span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/#services">Services</a></li>
+        <li><a href="https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/#why">Why Us</a></li>
+        <li><a href="https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/#hours">Hours</a></li>
+        <li><a href="https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/#location">Location</a></li>
+        <li><a href="https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="tel:+919810221262">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"></path></svg>
+        Call Now
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="container">
+    <div class="hero-copy reveal in">
+      <span class="eyebrow">Trusted Family Poly Clinic</span>
+      <h1>Care for your whole family, <em>any hour</em> of the day.</h1>
+      <p class="lead">Ideal Poly Clinic brings experienced, caring doctors and a friendly, supportive team to Kalyanpuri and East Delhi — open 24 hours, every day, with care that feels personal and stays budget friendly.</p>
+      <div class="rating">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <b>4.9 / 5</b>
+        <span>· 329 Google reviews</span>
+      </div>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="tel:+919810221262">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"></path></svg>
+          Call +91 98102 21262
+        </a>
+        <a class="btn btn-gold" href="tel:+919810221262" target="_blank" rel="noopener">
+          
+          phone Us
+        </a>
+      </div>
+      <p class="hero-note">Open 24 hours · 7 days a week · On-site parking · Wheelchair accessible</p>
+    </div>
+    <div class="hero-art reveal in">
+      <div class="art-ring">
+        <div class="art-inner">
+          <span>Multispeciality<br>Family Care<br>for Kalyanpuri</span>
+        </div>
+      </div>
+      <div class="art-chip chip-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9.3-9A5.4 5.4 0 0 1 12 6.6 5.4 5.4 0 0 1 21.3 12C19 16.4 12 21 12 21Z"></path></svg>
+        4.9★ · 329 reviews
+      </div>
+      <div class="art-chip chip-2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+        Open 24 Hours
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust" aria-label="Key facts">
+  <div class="container trust-grid">
+    <div class="trust-item"><div class="num">24×7</div><div class="lbl">Open every day</div></div>
+    <div class="trust-item"><div class="num">4.9 / 5</div><div class="lbl">Google rating</div></div>
+    <div class="trust-item"><div class="num">329</div><div class="lbl">Patient reviews</div></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow">About the Clinic</span>
+      <h2>A neighbourhood clinic that truly cares</h2>
+      <p>Ideal Poly Clinic is a multispeciality, family-focused medical centre serving Kalyanpuri, Mayur Vihar and East Delhi. Our experienced team explains everything clearly, treats every patient with warmth, and keeps quality care budget friendly.</p>
+    </div>
+    <div class="card reveal" style="background:var(--mint-soft)">
+      <h3 style="margin-bottom:.6rem">Meet your doctor</h3>
+      <p style="color:var(--ink-soft)">Consultations are led by <strong>___ Doctor Name ___</strong> — <em>(add doctor name, qualifications and specialisation)</em>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="services" style="background:var(--white)">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Our Services</span>
+      <h2>Complete care, under one roof</h2>
+      <p>From everyday fevers to preventive checkups and specialist consultations — we cover your family's health needs.</p>
+    </div>
+    <div class="grid">
+      <div class="card reveal"><div class="ico"><span aria-hidden="true">↗</span></div><h3>WhatsApp</h3><p>Quick replies</p><a href="tel:+919810221262" target="_blank" rel="noopener">Call us now</a></div>
+      <div class="contact-card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg></div><h3>Visit Us</h3><p>Kalyanpuri, East Delhi</p><a href="https://www.google.com/maps/search/?api=1&amp;query=Ideal%20Poly%20Clinic%2013%2F62-63%20Kalyanpuri%20Delhi&amp;query_place_id=ChIJq6qqusbkDDkRRMa3RP045gM" target="_blank" rel="noopener">Get Directions</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot-grid">
+    <div>
+      <a class="brand" href="https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/#top" style="margin-bottom:1rem">
+        <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9.3-9A5.4 5.4 0 0 1 12 6.6 5.4 5.4 0 0 1 21.3 12C19 16.4 12 21 12 21Z"></path><path d="M12 8.5v7M8.5 12h7"></path></svg></span>
+        <span><span class="brand-name">Ideal Poly Clinic</span><br><span class="brand-sub">Kalyanpuri · Delhi · 24x7</span></span>
+      </a>
+      <p style="margin-top:.8rem;max-width:300px">Multispeciality family poly clinic serving Kalyanpuri, Mayur Vihar and East Delhi.</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p><a href="tel:+919810221262">+91 98102 21262</a></p>
+      <p>13/99, Mayur Vihar Phase I,<br>Block 13, Kalyan Puri,<br>New Delhi, Delhi 110091</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <p><a href="https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/#services">Services</a></p>
+      <p><a href="https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/#why">Why Us</a></p>
+      <p><a href="https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/#hours">Hours</a></p>
+      <p><a href="https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/#location">Location</a></p>
+    </div>
+  </div>
+  <div class="container demo-note">© <span id="yr">2026</span> Ideal Poly Clinic · Demo template website · Photos, prices &amp; doctor details are placeholders.</div>
+</footer>
+
+
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"MedicalClinic",
+  "name":"Ideal Poly Clinic 13/62-63 Kalyanpuri Delhi",
+  "description":"Multispeciality family poly clinic open 24 hours in Kalyanpuri, East Delhi. General physician, child doctor, women's health, diabetes care, BP & sugar checkup.",
+  "telephone":"+919810221262",
+  "address":{
+    "@type":"PostalAddress",
+    "streetAddress":"13/99, Mayur Vihar Phase I, Block 13, Kalyan Puri",
+    "addressLocality":"New Delhi",
+    "addressRegion":"Delhi",
+    "postalCode":"110091",
+    "addressCountry":"IN"
+  },
+  "geo":{"@type":"GeoCoordinates","latitude":28.6165863,"longitude":77.3144722},
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}
+  ],
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"329"},
+  "priceRange":"₹",
+  "paymentAccepted":"Cash, Google Pay",
+  "amenityFeature":[
+    {"@type":"LocationFeatureSpecification","name":"Wheelchair accessible entrance","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Wheelchair accessible parking","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Wheelchair accessible restroom","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Wheelchair accessible seating","value":true},
+    {"@type":"LocationFeatureSpecification","name":"On-site parking","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Restroom","value":true}
+  ],
+  "url":"https://ritik-sharma1.github.io/shivam-sharpsites-demos/ideal-poly-clinic-demo/"
+}
+</script>
+
+<a class="ss-whatsapp" href="https://wa.me/919810221262" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 .5A15.5 15.5 0 0 0 2.7 23.9L.5 31.5l7.8-2A15.5 15.5 0 1 0 16 .5Zm0 28.4a12.8 12.8 0 0 1-6.6-1.8l-.5-.3-4.6 1.2 1.2-4.5-.3-.5A12.9 12.9 0 1 1 16 28.9Zm7.1-9.6c-.4-.2-2.3-1.1-2.6-1.2-.4-.1-.6-.2-.9.2-.3.4-1 1.2-1.2 1.4-.2.3-.4.3-.8.1-.4-.2-1.6-.6-3.1-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8l.6-.7c.2-.2.2-.4.4-.6.1-.3.1-.5 0-.7-.1-.2-.9-2.1-1.2-2.8-.3-.8-.6-.6-.9-.7h-.7c-.3 0-.7.1-1 .5-.4.4-1.4 1.3-1.4 3.2 0 1.9 1.4 3.7 1.6 4 .2.3 2.7 4.1 6.6 5.8.9.4 1.6.6 2.2.8.9.3 1.8.3 2.4.2.8-.1 2.3-.9 2.6-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5Z"></path></svg></a>
+</body></html>
